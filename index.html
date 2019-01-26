@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>CodeCubs.co.uk</title>
+  <meta name="description" content="After School Programming Courses for Kids">
+  <meta name="keywords" content="Reading,Lessons,Courses,Kids,Children,School,Programming,Coding,Computer,ICT,Node,Linux,JavaScript">
+  <meta name="author" content="James Baker trading as CodeCubs">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" type="image/png" href="images/favicon.ico">
+</head>
+<body>
+  <script>
+    async function reqEmail() {
+      const {value: email} = await swal({
+        title: 'Contact email address',
+        input: 'email',
+        inputPlaceholder: 'Enter your email address'
+      })
+
+      if (email) {
+        swal('Thank You', "We will contact you at "+email, "success")
+        var req = new XMLHttpRequest()
+        if(window.location.hostname.indexOf('www') == -1) {
+          req.open('POST', 'https://mmalxn9h54.execute-api.eu-west-2.amazonaws.com/default/test_lambda')
+        } else {
+          req.open('POST', 'https://mmalxn9h54.execute-api.eu-west-2.amazonaws.com/default/enrol-www')
+        }
+        
+        req.onreadystatechange = function() { 
+          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+            console.log("Success")
+          } else {
+            console.log(req.response)
+          }
+        }
+        console.log("sending "+JSON.stringify({email: email}))
+        req.send(JSON.stringify({email: email}))
+      }
+    }
+  </script>
+
+  <div class="container">
+    <section class="header">
+      <img class="logo" src="images/Logo.png">
+      <h2 class="title">Welcome to CodeCubs.co.uk</h2>
+      <a class="button button-primary"
+        onclick="reqEmail()">
+        Enrol Me!
+      </a>
+    </section>  
+    <div class="navbar-spacer"></div>
+    <nav class="navbar">
+      <div class="container">
+        <ul class="navbar-list">
+          <li class="navbar-item"><a class="navbar-link" href="#codecubs">CodeCubs</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="#courses">Courses</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="#location">Location</a></li>
+          <li class="navbar-item"><a class="navbar-link" href="#about">About</a></li> 
+        </ul>
+      </div>
+      </nav>
+      <div class="docs-section" id="codecubs">
+        <h6 class="docs-header">CodeCubs</h6>
+        <p>CodeCubs educates children in all aspects of technology. Technology moves faster every day. <em>Will our future generation keep up?</em> Our courses are designed to engage students and prepare them for the future of technology.</p>
+        <p>At CodeCubs, students will learn to code by creating programs, websites and video games! Each course is flexible, ensuring that children learn what they won't from school.</p>
+      </div>
+      <div class="docs-section" id="courses">
+        <h6 class="docs-header">Courses</h6>
+        <p><strong>Courses cost £150 per student and consists of 11 lessons, each lesson is an hour. See our list of courses below.</strong></p>
+        <div class="value-props row">
+          <div class="four columns value-prop">
+            <img class="value-img" src="images/bash.png">
+          </div>
+          <div class="seven columns value-prop">
+            <strong>01. Bash Basics</strong>
+            <p>Every computer at CodeCubs runs Linux. Linux is a coder-friendly operating system that reveals everything under-the-hood. Students will learn through Linux core concepts of operating systems - such as how to program them!</p>
+            <p>Lessons are kept engaging with fun commands, trivia and pop-quizzes</p>
+          </div>
+        </div>
+        <div class="value-props row">
+          <div class="four columns value-prop">
+            <img class="value-img" src="images/js.png">
+          </div>
+          <div class="seven columns value-prop">
+            <strong>02. JavaScript Programming</strong>
+            <p>JavaScript is the most popular web-based programming language. Every website you visit - including this one - runs with JavaScript! This course will serve as an introduction to JavaScript. Introducing key concepts behind any programming language.</p>
+            <p>Knowledge from Bash Basics will be built upon in this course, by creating real websites and games.</p>
+          </div>
+        </div>
+        <div class="value-props row">
+          <div class="four columns value-prop">
+            <img class="value-img" src="images/node.png">
+          </div>
+          <div class="seven columns value-prop">
+            <strong>03. NodeJS Programming</strong> 
+            <p>We take JavaScript even further with NodeJS. Node allows us to code our computer directly, outside of a web browser. Students will use Node to create more advanced websites and games.</p>
+            <p>This course puts students to the test and allows them to think about websites in a whole new way!</p>
+          </div>
+        </div>
+        <div style="text-align: center">
+          <a class="button button-primary"  
+          onclick="reqEmail()">
+          Enrol Me!
+          </a>
+        </div>
+      </div>
+      <div class="docs-section" id="location">
+        <h6 class="docs-header">Location</h6>
+        <p>We are located at the <strong>Reading International Solidarity Centre</strong></p>
+        <p>
+          35-39 London St
+          Reading 
+          RG1 4PS
+        </p>
+        <iframe width="100%" 
+          height="100%" 
+          frameborder="0" 
+          style="border:0" 
+          src="https://www.google.com/maps/embed/v1/place?q=risc%20reading&key=AIzaSyAwlAQ0UO7qcA0Lub9LKiEp80_4B3-EI3M" 
+          allowfullscreen></iframe>
+      </div>
+      <div class="docs-section" id="about">
+        <h6 class="docs-header">About</h6>
+        <p>CodeCubs is an after school programming club, taught by James Baker. James is a Software Developer at Visa and graduate of Kingston University. With 5 years experience in industry, and 3 years of teaching, he is a great candidate to educate the next generation in a variety of technologies.</p>
+        <p><em>'CodeCubs' is the legal trading name of James Baker, who reserves all rights on any material created for the CodeCubs after school club.</em>  </p>
+      </div>
+  </div>
+</body>
+<link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
+<script src="js/sweetalert2.all.min.js"></script>
+<link rel="stylesheet" href="css/normalize.css">
+<link rel="stylesheet" href="css/skeleton.css">
+<link rel="stylesheet" href="css/custom.css">
+</html>
