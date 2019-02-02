@@ -14,9 +14,9 @@
   <script>
     async function reqEmail() {
       const {value: email} = await swal({
-        title: 'Contact email address',
+        title: 'Parent\'s contact email',
         input: 'email',
-        inputPlaceholder: 'Enter your email address'
+        inputPlaceholder: 'Enter parent\'s email address'
       })
 
       if (email) {
