@@ -21,32 +21,90 @@
 </head>
 <body>
   <script>
-    async function reqEmail() {
-      const {value: email} = await swal({
-        title: 'Parent\'s contact email',
-        input: 'email',
-        inputPlaceholder: 'Enter parent\'s email address'
-      })
-
-      if (email) {
-        swal('Thank You', "We will contact you at "+email, "success")
-        var req = new XMLHttpRequest()
-        if(window.location.hostname.indexOf('www') == -1) {
-          req.open('POST', 'https://mmalxn9h54.execute-api.eu-west-2.amazonaws.com/default/test_lambda')
+    function send(payload) {
+      var req = new XMLHttpRequest()
+      if(window.location.hostname.indexOf('www') == -1) {
+        req.open('POST', 'https://mmalxn9h54.execute-api.eu-west-2.amazonaws.com/default/test_lambda')
+      } else {
+        req.open('POST', 'https://mmalxn9h54.execute-api.eu-west-2.amazonaws.com/default/enrol-www')
+      }
+      
+      req.onreadystatechange = function() { 
+        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+          console.log("Success")
         } else {
-          req.open('POST', 'https://mmalxn9h54.execute-api.eu-west-2.amazonaws.com/default/enrol-www')
+          console.log(req.response)
         }
-        
-        req.onreadystatechange = function() { 
-          if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-            console.log("Success")
-          } else {
-            console.log(req.response)
+      }
+      console.log("sending "+JSON.stringify(payload))
+      req.send(JSON.stringify(payload))
+    }
+    
+
+    async function reqEmail() {
+      await Swal.mixin({
+        confirmButtonText: 'Next &rarr;',
+        showCancelButton: true,
+        progressSteps: ['1', '2', '3', '4']
+      }).queue([
+        {
+          title: 'Parent\'s Full Name',
+          input: 'text',
+          inputPlaceholder: 'Enter parent\'s full name',
+          inputValidator: (value) => {
+            return !value && 'Contact name is required'
+          }
+        },
+        {
+          title: 'Parent\'s Contact email',
+          input: 'email',
+          inputPlaceholder: 'Enter parent\'s email address'
+        },
+        {
+          title: 'Student\'s Full Name',
+          input: 'text',
+          inputPlaceholder: 'Enter student\'s full name',
+          inputValidator: (value) => {
+            return !value && 'Student name is required'
+          } 
+        },
+        {
+          title: 'The student is in...',
+          input: 'select',
+          inputOptions: {
+            'primary': 'Upper-Primary school',
+            'secondary': 'Secondary School ',
+            'other': 'Other'
+          }, 
+          inputPlaceholder: 'Select Age Group',
+          inputValidator: (value) => {
+            if (value == 'primary' || value == 'secondary') {
+              return false && 'Success'
+            } else if (value == 'other') {
+              return true && 'Students should be of Primary and Secondary School age'
+            } else {
+              return true && 'Select a value from the drop-down'
+            }
+            
           }
         }
-        console.log("sending "+JSON.stringify({email: email}))
-        req.send(JSON.stringify({email: email}))
-      }
+      ]).then((result) => {
+        if (result.value) {
+          obj = {
+            parent: result.value[0],
+            email: result.value[1],
+            student: result.value[2],
+            group: result.value[3]
+          }
+          Swal.fire({
+            title: 'Thank You!',
+            type: 'success',
+            text: 'We will contact you at '+obj.email,
+            confirmButtonText: 'See you soon!'
+          })
+          send(obj)
+        }
+      })
     }
   </script>
 
@@ -138,7 +196,8 @@
   </div>
 </body>
 <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-<script src="js/sweetalert2.all.min.js"></script>
+<script src="js/sweetalert2@8.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/skeleton.css">
 <link rel="stylesheet" href="css/custom.css">
