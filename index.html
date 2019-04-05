@@ -1,220 +1,223 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133724790-1"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-133724790-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
 
-    gtag('config', 'UA-133724790-1');
-  </script>
-  <!-- Facebook Pixel Code -->
-  <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '1027417624123911');
-    fbq('track', 'PageView');
-  </script>
-  <noscript><img height="1" width="1" style="display:none"
-    src="https://www.facebook.com/tr?id=1027417624123911&ev=PageView&noscript=1"
-  /></noscript>
-  <!-- End Facebook Pixel Code -->
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
 
-  <script>
-    fbq('track', 'ViewContent');
-  </script>
+        gtag('config', 'UA-133724790-1');
+    </script>
+    <!-- Facebook Pixel Code -->
+    <script>
+        ! function(f, b, e, v, n, t, s) {
+            if (f.fbq) return;
+            n = f.fbq = function() {
+                n.callMethod ?
+                    n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+            };
+            if (!f._fbq) f._fbq = n;
+            n.push = n;
+            n.loaded = !0;
+            n.version = '2.0';
+            n.queue = [];
+            t = b.createElement(e);
+            t.async = !0;
+            t.src = v;
+            s = b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t, s)
+        }(window, document, 'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '1027417624123911');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1027417624123911&ev=PageView&noscript=1" /></noscript>
+    <!-- End Facebook Pixel Code -->
 
-  <meta charset="utf-8">
-  <title>CodeCubs.co.uk</title>
-  <meta name="description" content="After School Programming Courses for Kids">
-  <meta name="keywords" content="Reading,Lessons,Courses,Kids,Children,School,Programming,Coding,Computer,ICT,Node,Linux,JavaScript">
-  <meta name="author" content="James Baker trading as CodeCubs">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        fbq('track', 'ViewContent');
+    </script>
 
-  <link rel="icon" type="image/png" href="images/favicon.ico">
+    <meta charset="utf-8">
+    <title>CodeCubs.co.uk</title>
+    <meta name="description" content="After School Programming Courses for Kids">
+    <meta name="keywords" content="Reading,Lessons,Courses,Kids,Children,School,Programming,Coding,Computer,ICT,Node,Linux,JavaScript">
+    <meta name="author" content="James Baker trading as CodeCubs">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="icon" type="image/png" href="images/favicon.ico">
 </head>
+
 <body>
-  <script>
-    function send(payload) {
-      var req = new XMLHttpRequest()
-      if(window.location.hostname.indexOf('www') == -1) {
-        req.open('POST', 'https://mmalxn9h54.execute-api.eu-west-2.amazonaws.com/default/test_lambda')
-      } else {
-        req.open('POST', 'https://mmalxn9h54.execute-api.eu-west-2.amazonaws.com/default/enrol-www')
-      }
-      
-      req.onreadystatechange = function() { 
-        if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-          console.log("Success")
-        } else {
-          console.log(req.response)
-        }
-      }
-      console.log("sending "+JSON.stringify(payload))
-      req.send(JSON.stringify(payload))
-    }
-    
+    <script>
+        "use strict";
 
-    async function reqEmail() {
-      await Swal.mixin({
-        confirmButtonText: 'Next &rarr;',
-        showCancelButton: true,
-        progressSteps: ['1', '2', '3', '4']
-      }).queue([
-        {
-          title: 'Parent\'s Full Name',
-          input: 'text',
-          inputPlaceholder: 'Enter parent\'s full name',
-          inputValidator: (value) => {
-            return !value && 'Contact name is required'
-          }
-        },
-        {
-          title: 'Parent\'s Contact email',
-          input: 'email',
-          inputPlaceholder: 'Enter parent\'s email address'
-        },
-        {
-          title: 'Student\'s Full Name',
-          input: 'text',
-          inputPlaceholder: 'Enter student\'s full name',
-          inputValidator: (value) => {
-            return !value && 'Student name is required'
-          } 
-        },
-        {
-          title: 'The student is in...',
-          input: 'select',
-          inputOptions: {
-            'primary': 'Upper-Primary school',
-            'secondary': 'Secondary School ',
-            'other': 'Other'
-          }, 
-          inputPlaceholder: 'Select Age Group',
-          inputValidator: (value) => {
-            if (value == 'primary' || value == 'secondary') {
-              return false && 'Success'
-            } else if (value == 'other') {
-              return true && 'Students should be in Primary or Secondary School'
+        function send(payload) {
+            var req = new XMLHttpRequest();
+
+            if (window.location.hostname.indexOf('www') == -1) {
+                req.open('POST', 'https://mmalxn9h54.execute-api.eu-west-2.amazonaws.com/default/test_lambda');
             } else {
-              return true && 'Select a value from the drop-down'
+                req.open('POST', 'https://mmalxn9h54.execute-api.eu-west-2.amazonaws.com/default/enrol-www');
             }
-            
-          }
-        }
-      ]).then((result) => {
-        if (result.value) {
-          obj = {
-            parent: result.value[0],
-            email: result.value[1],
-            student: result.value[2],
-            group: result.value[3]
-          }
-          Swal.fire({
-            title: 'Thank You!',
-            type: 'success',
-            text: 'We will contact you at '+obj.email,
-            confirmButtonText: 'See you soon!'
-          })
-          send(obj)
-        }
-      })
-    }
-  </script>
 
-  <div class="container">
-    <section class="header">
-      <img class="logo" src="images/Logo.png">
-      <h2 class="title">Welcome to CodeCubs.co.uk</h2>
-      <a class="button button-primary"
-        onclick="reqEmail()">
-        Enrol Student!
-      </a>
-    </section>  
-    <div class="navbar-spacer"></div>
-    <nav class="navbar">
-      <div class="container">
-        <ul class="navbar-list">
-          <li class="navbar-item"><a class="navbar-link" href="#codecubs">CodeCubs</a></li>
-          <li class="navbar-item"><a class="navbar-link" href="#courses">Courses</a></li>
-          <li class="navbar-item"><a class="navbar-link" href="#location">Location</a></li>
-          <li class="navbar-item"><a class="navbar-link" href="#about">About</a></li> 
-        </ul>
-      </div>
-      </nav>
-      <div class="docs-section" id="codecubs">
-        <h6 class="docs-header">CodeCubs</h6>
-        <p>CodeCubs educates children in all aspects of technology. Technology moves faster every day. <em>Will our future generation keep up?</em> Our courses are designed to engage students and prepare them for the future of technology.</p>
-        <p>At CodeCubs, students will learn to code by creating programs, websites and video games! Each course is flexible, ensuring that children learn what they won't from school.</p>
-      </div>
-      <div class="docs-section" id="courses">
-        <h6 class="docs-header">Courses</h6>
-        <p><strong>Courses cost £150 per student and consists of 11 lessons, each lesson is an hour. See our list of courses below.</strong></p>
-        <div class="value-props row">
-          <div class="four columns value-prop">
-            <img class="value-img" src="images/bash.png">
-          </div>
-          <div class="seven columns value-prop">
-            <strong>01. Bash Basics</strong>
-            <p>Every computer at CodeCubs runs Linux. Linux is a coder-friendly operating system that reveals everything under-the-hood. Students will learn through Linux core concepts of operating systems - such as how to program them!</p>
-            <p>Lessons are kept engaging with fun commands, trivia and pop-quizzes</p>
-          </div>
+            req.onreadystatechange = function() {
+                if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                    console.log("Success");
+                } else {
+                    console.log(req.response);
+                }
+            };
+
+            console.log("sending " + JSON.stringify(payload));
+            req.send(JSON.stringify(payload));
+        }
+
+        async function reqEmail() {
+            await Swal.mixin({
+                confirmButtonText: 'Next &rarr;',
+                showCancelButton: true,
+                progressSteps: ['1', '2', '3', '4']
+            }).queue([{
+                title: 'Parent\'s Full Name',
+                input: 'text',
+                inputPlaceholder: 'Enter parent\'s full name',
+                inputValidator: function inputValidator(value) {
+                    return !value && 'Contact name is required';
+                }
+            }, {
+                title: 'Parent\'s Contact email',
+                input: 'email',
+                inputPlaceholder: 'Enter parent\'s email address'
+            }, {
+                title: 'Student\'s Full Name',
+                input: 'text',
+                inputPlaceholder: 'Enter student\'s full name',
+                inputValidator: function inputValidator(value) {
+                    return !value && 'Student name is required';
+                }
+            }, {
+                title: 'The student is in...',
+                input: 'select',
+                inputOptions: {
+                    'primary': 'Upper-Primary school',
+                    'secondary': 'Secondary School ',
+                    'other': 'Other'
+                },
+                inputPlaceholder: 'Select Age Group',
+                inputValidator: function inputValidator(value) {
+                    if (value == 'primary' || value == 'secondary') {
+                        return false && 'Success';
+                    } else if (value == 'other') {
+                        return true && 'Students should be in Primary or Secondary School';
+                    } else {
+                        return true && 'Select a value from the drop-down';
+                    }
+                }
+            }]).then(function(result) {
+                if (result.value) {
+                    obj = {
+                        parent: result.value[0],
+                        email: result.value[1],
+                        student: result.value[2],
+                        group: result.value[3]
+                    };
+                    Swal.fire({
+                        title: 'Thank You!',
+                        type: 'success',
+                        text: 'We will contact you at ' + obj.email,
+                        confirmButtonText: 'See you soon!'
+                    });
+                    send(obj);
+                }
+            });
+        }
+    </script>
+
+    <div class="container">
+        <section class="header">
+            <img class="logo" src="images/Logo.png">
+            <h2 class="title">Welcome to CodeCubs.co.uk</h2>
+            <a class="button button-primary" onclick="reqEmail()">
+                Enrol Student!
+            </a>
+        </section>
+        <div class="navbar-spacer"></div>
+        <nav class="navbar">
+            <div class="container">
+                <ul class="navbar-list">
+                    <li class="navbar-item"><a class="navbar-link" href="#codecubs">CodeCubs</a></li>
+                    <li class="navbar-item"><a class="navbar-link" href="#courses">Courses</a></li>
+                    <li class="navbar-item"><a class="navbar-link" href="#location">Location</a></li>
+                    <li class="navbar-item"><a class="navbar-link" href="#about">About</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="docs-section" id="codecubs">
+            <h6 class="docs-header">CodeCubs</h6>
+            <p>CodeCubs educates children in all aspects of technology. Technology moves faster every day. <em>Will our future generation keep up?</em> Our courses are designed to engage students and prepare them for the future of technology.</p>
+            <p>At CodeCubs, students will learn to code by creating programs, websites and video games! Each course is flexible, ensuring that children learn what they won't from school.</p>
         </div>
-        <div class="value-props row">
-          <div class="four columns value-prop">
-            <img class="value-img" src="images/js.png">
-          </div>
-          <div class="seven columns value-prop">
-            <strong>02. JavaScript Programming</strong>
-            <p>JavaScript is the most popular web-based programming language. Every website you visit - including this one - runs with JavaScript! This course will serve as an introduction to JavaScript. Introducing key concepts behind any programming language.</p>
-            <p>Knowledge from Bash Basics will be built upon in this course, by creating real websites and games.</p>
-          </div>
+        <div class="docs-section" id="courses">
+            <h6 class="docs-header">Courses</h6>
+            <p><strong>Courses cost £150 per student and consists of 11 lessons, each lesson is an hour. See our list of courses below.</strong></p>
+            <div class="value-props row">
+                <div class="four columns value-prop">
+                    <img class="value-img" src="images/bash.png">
+                </div>
+                <div class="seven columns value-prop">
+                    <strong>01. Bash Basics</strong>
+                    <p>Every computer at CodeCubs runs Linux. Linux is a coder-friendly operating system that reveals everything under-the-hood. Students will learn through Linux core concepts of operating systems - such as how to program them!</p>
+                    <p>Lessons are kept engaging with fun commands, trivia and pop-quizzes</p>
+                </div>
+            </div>
+            <div class="value-props row">
+                <div class="four columns value-prop">
+                    <img class="value-img" src="images/js.png">
+                </div>
+                <div class="seven columns value-prop">
+                    <strong>02. JavaScript Programming</strong>
+                    <p>JavaScript is the most popular web-based programming language. Every website you visit - including this one - runs with JavaScript! This course will serve as an introduction to JavaScript. Introducing key concepts behind any programming language.</p>
+                    <p>Knowledge from Bash Basics will be built upon in this course, by creating real websites and games.</p>
+                </div>
+            </div>
+            <div class="value-props row">
+                <div class="four columns value-prop">
+                    <img class="value-img" src="images/node.png">
+                </div>
+                <div class="seven columns value-prop">
+                    <strong>03. NodeJS Programming</strong>
+                    <p>We take JavaScript even further with NodeJS. Node allows us to code our computer directly, outside of a web browser. Students will use Node to create more advanced websites and games.</p>
+                    <p>This course puts students to the test and allows them to think about websites in a whole new way!</p>
+                </div>
+            </div>
+            <div style="text-align: center">
+                <a class="button button-primary" onclick="reqEmail()">
+                    Enrol Student!
+                </a>
+            </div>
         </div>
-        <div class="value-props row">
-          <div class="four columns value-prop">
-            <img class="value-img" src="images/node.png">
-          </div>
-          <div class="seven columns value-prop">
-            <strong>03. NodeJS Programming</strong> 
-            <p>We take JavaScript even further with NodeJS. Node allows us to code our computer directly, outside of a web browser. Students will use Node to create more advanced websites and games.</p>
-            <p>This course puts students to the test and allows them to think about websites in a whole new way!</p>
-          </div>
+        <div class="docs-section" id="location">
+            <h6 class="docs-header">Location</h6>
+            <p>We are located at the <strong>Reading International Solidarity Centre</strong></p>
+            <p>
+                35-39 London St
+                Reading
+                RG1 4PS
+            </p>
+            <iframe width="100%" height="100%" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=risc%20reading&key=AIzaSyAwlAQ0UO7qcA0Lub9LKiEp80_4B3-EI3M" allowfullscreen></iframe>
         </div>
-        <div style="text-align: center">
-          <a class="button button-primary"  
-          onclick="reqEmail()">
-          Enrol Student!
-          </a>
+        <div class="docs-section" id="about">
+            <h6 class="docs-header">About</h6>
+            <p>CodeCubs is an after school programming club, taught by James Baker. James is a Software Developer at Visa and graduate of Kingston University. With 5 years experience in industry, and 3 years of teaching, he is a great candidate to educate the next generation in a variety of technologies.</p>
+            <p><em>'CodeCubs' is the legal trading name of James Baker, who reserves all rights on any material created for the CodeCubs after school club.</em> </p>
         </div>
-      </div>
-      <div class="docs-section" id="location">
-        <h6 class="docs-header">Location</h6>
-        <p>We are located at the <strong>Reading International Solidarity Centre</strong></p>
-        <p>
-          35-39 London St
-          Reading 
-          RG1 4PS
-        </p>
-        <iframe width="100%" 
-          height="100%" 
-          frameborder="0" 
-          style="border:0" 
-          src="https://www.google.com/maps/embed/v1/place?q=risc%20reading&key=AIzaSyAwlAQ0UO7qcA0Lub9LKiEp80_4B3-EI3M" 
-          allowfullscreen></iframe>
-      </div>
-      <div class="docs-section" id="about">
-        <h6 class="docs-header">About</h6>
-        <p>CodeCubs is an after school programming club, taught by James Baker. James is a Software Developer at Visa and graduate of Kingston University. With 5 years experience in industry, and 3 years of teaching, he is a great candidate to educate the next generation in a variety of technologies.</p>
-        <p><em>'CodeCubs' is the legal trading name of James Baker, who reserves all rights on any material created for the CodeCubs after school club.</em>  </p>
-      </div>
-  </div>
+    </div>
 </body>
 <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
 <script src="js/sweetalert2@8.js"></script>
@@ -222,4 +225,5 @@
 <link rel="stylesheet" href="css/normalize.css">
 <link rel="stylesheet" href="css/skeleton.css">
 <link rel="stylesheet" href="css/custom.css">
+
 </html>
